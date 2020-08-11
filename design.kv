@@ -1,0 +1,181 @@
+#:kivy 1.0
+# This lesson will look at 
+# adding a scrollable area
+# for the quotes text file.
+
+# Creates the first screen
+<LoginScreen>:
+    # Sets grid for entire window
+    GridLayout:
+        # Creates 1 column inside 
+        # window
+        cols:1
+        GridLayout:
+            # Creates column
+            # for the username and password
+            # field as well as the login button
+            cols:1
+            # Padding is (outside)
+            # space around the label,
+            # text input and button
+            padding: 15, 15
+            # Spacing is area (inside)
+            # around between the label,
+            # text input and button
+            spacing: 20, 20
+            Label:
+                text: "User Login"
+                # Has to be a string
+                font_size: "20sp"
+            TextInput:
+                id: username
+                # Default text shown in 
+                # username field
+                hint_text: "Username"
+            TextInput:
+                id: password
+                # Replaces text with * 
+                # to hide password
+                password: True
+                hint_text: "Password"
+            RelativeLayout:
+                Button:
+                    text: "Login"
+                    on_press: root.login(root.ids.username.text, root.ids.password.text)
+                    # Sets width to 30% and height to 50% 
+                    size_hint: 0.3, 0.5
+                    # Sets location of roughly the centre
+                    pos_hint: {'center_x': 0.5, 'center_y': 0.6}
+            Label:
+                id: login_wrong
+                text: ""
+        # Two columns for "Forgot password?"
+        # and "Sign Up"
+        GridLayout:
+            cols:2
+            # Sets size of grid for 
+            # Sign up and Forgot Password button
+            # to 20%
+            size_hint: 0.2, 0.2
+            padding: 10, 10 
+            spacing: 10, 10
+            Button:
+                text: "Forgot Password?"
+                # RGB values range from 0 to
+                # 1 in decimal form
+                # Last number sets button to be
+                # transparent
+                background_color: 1,1,1,0
+                # Text changes colour when clicked
+                opacity: 1 if self.state == 'normal' else 0.5
+                # Sets colour of text
+                color: 0.1, 0.7, 1, 1
+            Button:
+                text: "Sign up"
+                # Root refers to LoginScreen class
+                # in .py
+                # Run sign_up function when user
+                # presses button
+                on_press: root.sign_up()
+                background_color: 1,1,1,0
+                # Font changes colour when clicked
+                opacity: 1 if self.state == 'normal' else 0.5
+                color: 0.1, 0.7, 1, 1
+
+# New screen for signup page
+<SignUpScreen>:
+    GridLayout:
+        cols: 1
+        # Text at top of screen
+        # Padding is (outside)
+        # space around the label,
+        # text input and button
+        padding: 20, 20 
+        # Spacing is area (inside)
+        # around between the label,
+        # text input and button
+        spacing: 20, 20
+        Label:
+            text: "Sign up for a journey through time!"
+        # User enters their details for sign up
+        TextInput:
+            # Id used to refer to username field
+            # in add_user function
+            id: username
+            hint_text: "username"
+        TextInput:
+            id: password
+            hint_text: "password"
+        Button:
+            text: "Submit"
+            # Passes the username and password as text
+            # to add_user function 
+            on_press: root.add_user(root.ids.username.text, root.ids.password.text)
+
+<SignUpScreenSuccess>:
+    GridLayout:
+        cols: 1
+        Label:
+            text: "Sign up successful!"
+        Button:
+            text: "Login page"
+            on_press: root.go_to_login()
+
+<LoginScreenSuccess>:
+    GridLayout:
+        cols:1  
+        padding: 30, 30
+        spacing: 30, 30
+        # To change position of button,
+        # you must be inside a RelativeLayout
+        # rule
+        RelativeLayout:
+            ImageButton:
+                # Takes user to login screen
+                # when pressed
+                on_press: root.log_out()
+                # Changes between hover images if cursor is 
+                # over this area
+                source: "logout_hover.png" if self.hovered else "logout_nothover.png"
+                size_hint: 0.35, 0.35
+                pos_hint: {'center_x': 0.93, 'center_y': 0.80}
+        Label:
+            text: "How do you feel?"
+        TextInput:
+            # User inputs their emotion
+            id: feeling
+            hint_text: "Things to try: happy, sad, unloved"
+        Button:
+            # Gets the quote based on the feeling
+            text: "Enlighten me!"
+            on_press: root.get_quote(root.ids.feeling.text)
+        # Sets area where quotes appear
+        # as scrollable (scrollbar appears on right)
+        ScrollView:
+            Label:
+                # Sets area for where quote texts appears
+                id: quote
+                text: ""
+                # Self refers label and so text knows
+                # amount of space it takes up
+                # None = no limit to height of text
+                text_size: self.width, None
+                # Makes vertical space for quotes really big
+                size_hint_y: None
+                # Accesses height to set vertical space
+                # to change depending on the height
+                heigth: self.texture_size[1]
+
+
+# Returns all the screens
+# to python file
+<RootWidget>:
+    # Calls the LoginScreen class
+    LoginScreen:
+        name: "login_screen"
+    SignUpScreen:
+        name: "sign_up_screen"
+    SignUpScreenSuccess:
+        name: "sign_up_screen_success"
+    LoginScreenSuccess:
+        name: "login_screen_success"

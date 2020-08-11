@@ -1,0 +1,61 @@
+How to deploy a kivy and main.py file 
+
+Note: This will be inside a Linux VM
+
+1)
+Use this command to get buildozer.sh file: 
+cat kivy-buildozer-installer.sh
+
+2) 
+Use this command to install kivy:
+sudo apt-get install python3-kivy
+
+3)
+Install git as well to download 
+packages in the future
+sudo apt-get install git
+
+4) 
+Initialise the buildozer folder:
+buildozer init
+
+5)
+Use this command to create buildozer.sh
+file:
+bash kivy-buildozer-installer.sh
+6) 
+Make sure to add all the necessary file 
+extensions that you may need e.g. txt
+Also, set the app to allow for all
+screen orientations
+orientation = all
+7)
+Install the following files before buidling
+the apk file:
+sudo apt-get install zlib1g
+sudo apt-get install openjdk-8-jdk
+Or this version: sudo apt-get install default-jdk
+8)
+Additional commands are required to get rid of autoconf,
+automake and ctypes errors:
+sudo apt install cython3
+sudo apt-get install autoconf
+sudo apt-get install automake
+sudo apt-get install g++
+sudo apt-get install libtool m4 automake
+sudo apt-get install lld
+sudo apt install libssl-dev
+
+9)
+Finally, to install the libffi-devel file, do the following:
+sudo apt-get update -y
+sudo apt-get install -y libffi-dev
+10)
+Wait a few minutes and you'll get the apk file!
+
+
+
+
+
+
+
