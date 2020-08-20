@@ -1,3 +1,5 @@
+## Happy Android App
+
 Uses the Kivy Python library to create a mobile app. The app can store new users with login capabilities. Purpose of the app is to display quotes to the user depending on their emotion (typed in a text box and can be picked from 3 options: happy, sad and excited).
 
 Project name: Happy Android App
